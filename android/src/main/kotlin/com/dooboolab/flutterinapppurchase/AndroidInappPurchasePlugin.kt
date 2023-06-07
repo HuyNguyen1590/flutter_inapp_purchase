@@ -507,19 +507,29 @@ class AndroidInappPurchasePlugin internal constructor() : MethodCallHandler,
 
             // Get the selected offerToken from the product, or first one if this is a migrated from 4.0 product
             // or if the offerTokenIndex was not provided
-            var offerToken : String? = null
-            if (offerTokenIndex != null) {
-                offerToken = selectedProductDetails.subscriptionOfferDetails?.get(offerTokenIndex)?.offerToken
-            }
+//            var offerToken : String? = null
+//            if (offerTokenIndex != null) {
+//                offerToken = selectedProductDetails.subscriptionOfferDetails?.get(offerTokenIndex)?.offerToken
+//            }
+//            if (offerToken == null) {
+//                offerToken = selectedProductDetails.subscriptionOfferDetails!![0].offerToken
+//            }
+//
+//            val productDetailsParamsList =
+//            listOf(ProductDetailsParams.newBuilder()
+//                .setProductDetails(selectedProductDetails)
+//                .setOfferToken(offerToken)
+//                .build())
             if (offerToken == null) {
-                offerToken = selectedProductDetails.subscriptionOfferDetails!![0].offerToken
-            }
-
+                offerToken = selectedProductDetails.subscriptionOfferDetails?.get(0)?.offerToken }
             val productDetailsParamsList =
-            listOf(ProductDetailsParams.newBuilder()
-                .setProductDetails(selectedProductDetails)
-                .setOfferToken(offerToken)
-                .build())
+                listOf( if(offerToken == null) ProductDetailsParams.newBuilder()
+                    .setProductDetails(selectedProductDetails)
+                    .build() else ProductDetailsParams.newBuilder()
+                    .setProductDetails(selectedProductDetails)
+                    .setOfferToken(offerToken)
+                    .build()
+                )
             builder.setProductDetailsParamsList(productDetailsParamsList)
 
             val params = SubscriptionUpdateParams.newBuilder()
