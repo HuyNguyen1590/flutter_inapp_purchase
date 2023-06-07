@@ -507,10 +507,10 @@ class AndroidInappPurchasePlugin internal constructor() : MethodCallHandler,
 
             // Get the selected offerToken from the product, or first one if this is a migrated from 4.0 product
             // or if the offerTokenIndex was not provided
-//            var offerToken : String? = null
-//            if (offerTokenIndex != null) {
-//                offerToken = selectedProductDetails.subscriptionOfferDetails?.get(offerTokenIndex)?.offerToken
-//            }
+            var offerToken : String? = null
+            if (offerTokenIndex != null) {
+                offerToken = selectedProductDetails.subscriptionOfferDetails?.get(offerTokenIndex)?.offerToken
+            }
 //            if (offerToken == null) {
 //                offerToken = selectedProductDetails.subscriptionOfferDetails!![0].offerToken
 //            }
